@@ -7,12 +7,6 @@ module Gamify
     update_model_point_balance
   end
 
-  def get_points
-    @points = self.points if self.respond_to?('points')
-    @points = 0 if @points.nil?
-    @points
-  end
-
   def total_points
     get_points
   end
@@ -45,6 +39,12 @@ module Gamify
   end
 
   private
+
+    def get_points
+      @points = self.points if self.respond_to?('points')
+      @points = 0 if @points.nil?
+      @points
+    end
 
     def update_model_point_balance
       if self.respond_to?('points')

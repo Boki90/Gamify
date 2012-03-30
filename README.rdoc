@@ -1,0 +1,74 @@
+= About Gamify
+
+Gamify is a gem in development for adding gamification features such as experience points and levels.
+
+== Overview
+
+Please excuse any errors or omissions as this is the first gem I have released.
+
+Gamification is an emerging trend in web application development, due to its ability to engage users and shape user behavior.
+
+The Gamify gem aims to encapsulate common gamification techniques and best practices in a manner that can be easily added to a Rails project.
+
+The gem currently includes a simple experience point and leveling system, which closely models the leveling system of a popular MMO.
+
+Future functionality may include achievements, awards, badges, and reward schedules, though there are already established gems for some of these features.
+
+== Usage
+
+The Gamify module can be included in any class to add a point system and leveling.
+
+  class Member
+    include Gamify
+  end
+
+This will then add the following public methods to the object:
+
+* set_points(points)
+* add_points(points)
+* total_points
+* level
+* percent_level_complete
+* points_to_next_level
+
+An example of its use is as follows:
+
+  def award_points
+    level = @user.level
+    if @user.add_points(400) > level
+      flash[:notice] = "Congratulations, you are now level #{@user.level}!"
+    end
+  end
+
+The interface is rough, but it will be improved as development continues.
+
+== Setup
+
+To install the gem, add
+
+  gem 'gamify'
+
+To your gemfile, run
+
+  bundle install
+
+Add a points attribute to the model if necessary:
+
+  bundle exec rails g migration AddPointsToObject points:integer
+  bundle exec rake db:migrate
+
+Include the module:
+
+  class Member
+    include Gamify
+  end
+
+= License
+
+Copyright (C) 2012 Ian Ulery
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
